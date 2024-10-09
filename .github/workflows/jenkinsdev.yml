@@ -16,8 +16,8 @@ jobs :
                 fetch-depth: 0
             # - name : "npm init"
             #   run : npm init
-            - name : "npm install"
-              run : npm install
+            # - name : "npm install"
+            #   run : npm install
             # - name : "ES Lint version"
             #   run : npm info eslint ==> To see eslint version
             - name : "Install npm module"
