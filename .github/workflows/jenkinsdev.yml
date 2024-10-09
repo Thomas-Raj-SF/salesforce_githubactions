@@ -10,6 +10,10 @@ jobs :
     Salesforce-Job:
         runs-on : ubuntu-latest
         steps :
+            - name : "Checkout to the rep"
+              uses: actions/checkout@v4.2.1
+              with:
+                fetch-depth: 0
             - name : "npm init"
               run : npm init
             - name : "Install npm module"
@@ -20,6 +24,7 @@ jobs :
               run : sf --version
             - name : "Print  npm version"
               run : npm --version
+
 
 
                
