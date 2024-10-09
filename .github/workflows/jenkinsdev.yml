@@ -19,7 +19,7 @@ jobs :
             - name : "ES Lint version"
               run : npm info eslint
             - name : "Install npm module"
-              run : npm update --force
+              run : npm install
             - name : "ES Lint version"
               run : npm info eslint
             - name: "Install sfdx cli"
