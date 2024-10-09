@@ -1,0 +1,9 @@
+name: Github Action for Jenkinsdev
+run-name : Thomas is running the Github Action
+on: [push]
+jobs :
+    First-Job
+    runs-on: ubuntu-latest
+    steps:
+        - run : echo "Job running"
+        name : "Demo Job"
