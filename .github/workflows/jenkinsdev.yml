@@ -7,4 +7,18 @@ jobs :
         steps:
             - run : echo "Job running"
               name : "Demo Script"
+    Salesforce-Job:
+        runs-on : ububtu-latest
+        steps :
+            - name : "Install npm module"
+              run : npm install
+            - name: "Install nmp"
+              run : npm install @salesforce/cli --global
+            - name : "Print versions"
+              run : sf --version
+            - name : "Print  npm version"
+              run : npm --version
+               
+
+
     
