@@ -16,8 +16,8 @@ jobs :
                 fetch-depth: 0
             # - name : "npm init"
             #   run : npm init
-            # - name : "Install npm module"
-            #   run : npm update
+            - name : "Install npm module"
+              run : npm update --force
             - name: "Install nmp"
               run : npm install @salesforce/cli --global
             - name : "Print versions"
