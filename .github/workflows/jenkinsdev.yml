@@ -14,8 +14,8 @@ jobs :
               uses: actions/checkout@v4.2.1
               with:
                 fetch-depth: 0
-            - name : "npm init"
-              run : npm init
+            # - name : "npm init"
+            #   run : npm init
             - name : "npm install"
               run : npm install
             # - name : "ES Lint version"
