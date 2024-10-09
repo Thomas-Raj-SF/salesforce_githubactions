@@ -16,9 +16,13 @@ jobs :
                 fetch-depth: 0
             # - name : "npm init"
             #   run : npm init
+            - name : "ES Lint version"
+              run : npm info eslint
             - name : "Install npm module"
               run : npm update --force
-            - name: "Install nmp"
+            - name : "ES Lint version"
+              run : npm info eslint
+            - name: "Install sfdx cli"
               run : npm install @salesforce/cli --global
             - name : "Print versions"
               run : sf --version
