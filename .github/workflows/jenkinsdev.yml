@@ -10,6 +10,8 @@ jobs :
     Salesforce-Job:
         runs-on : ubuntu-latest
         steps :
+            - name : "npm init"
+              run : npm init
             - name : "Install npm module"
               run : npm install
             - name: "Install nmp"
