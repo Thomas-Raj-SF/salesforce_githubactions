@@ -46,7 +46,11 @@ jobs :
             # Step 5 : Add the decrypt command in yml file.
             # openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
             - name : "Authorize the Org usinf encrypted server.key"
-              run : openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
+              run : echo "Authorization using encrypted server.key"
+            - name : "Decrypt , create and store server.key in assets folder"
+              run : openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server1.key -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
+            - name : "Authorize the org using encrypted server.key - server1.key"
+              run : sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assets/server1.key --client-id ${{ secrets.SF_CLIENT_ID }} --set-default --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
 
 
 
