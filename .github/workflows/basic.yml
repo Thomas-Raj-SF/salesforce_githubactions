@@ -31,7 +31,7 @@ jobs :
             - name : "Print  npm version"
               run : npm --version
             - name : "Authorize an org"
-              run :  sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file ${{ secrets.JWT_KEY_FILE }} --client-id ${{ secrets.SF_CLIENT_ID }} --set-default --alias ci-org --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
+              run :  sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assests/server.key --client-id ${{ secrets.SF_CLIENT_ID }} --set-default --alias ci-org --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
 
 
                
