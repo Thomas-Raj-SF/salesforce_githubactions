@@ -33,6 +33,8 @@ jobs :
               # This command will use server.key from the repo , not so secure step 1
             - name : "Authorize an org case 1"
               run :  sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assets/server.key --client-id ${{ secrets.SF_CLIENT_ID }} --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
+            - name: Deploy The Code to Salesforce
+              run: sf project deploy start --source-dir force-app --target-org ${{ secrets.SF_USERNAME }} --dry-run
             # Use the encrypted server.key
 
             # step 1 : Run this command  - openssl enc -aes-256-cbc -k GITHUBACTIONS_PANTHERSCHOOLS -P -md sha1 -nosalt. This will generate the below o/p
