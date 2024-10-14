@@ -8,6 +8,8 @@ public class DemoTest {
         Integer num2 = 3;
         Integer num3 = 2;
         Integer num4 = 3;
+        Integer num5 = 2;
+        Integer num6 = 3;
         // Act
         Integer result = addInstance.addNumbers(num1, num2);
         
