@@ -1,0 +1,87 @@
+name: Github Action for Jenkinsdev
+run-name : ${{github.actor}} is running the Github Action
+on:
+ push:
+  paths:
+   - 'force-app/**'
+jobs :
+    First-Job:
+        runs-on: ubuntu-latest
+        steps:
+            - run : echo "Job running"
+              name : "Demo Script"
+    Salesforce-Job:
+        runs-on : ubuntu-latest
+        # Environment is available only in public repo for a free tier github
+        # environment : flotest
+        steps :
+            - name : "Checkout to the rep"
+              uses: actions/checkout@v4.2.1
+              with:
+                fetch-depth: 0
+            # - name : "npm init"
+            #   run : npm init
+            # - name : "npm install"
+            #   run : npm install
+            # - name : "ES Lint version"
+            #   run : npm info eslint ==> To see eslint version
+            # - name : "Install npm module"
+            #   run : npm install
+            - name : "ES Lint version"
+              run : npm info eslint
+            - name: "Install sfdx cli"
+              run : npm install @salesforce/cli --global
+            - name : "Print versions"
+              run : sf --version
+            - name : "Print  npm version"
+              run : npm --version
+              # This command will use server.key from the repo , not so secure step 1
+            - name : "Authorize an org case 1"
+              run :  sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assets/server.key --client-id ${{ secrets.SF_CLIENT_ID }} --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
+            # - name: Deploy The Code to Salesforce
+            #   run: sf project deploy start --source-dir force-app --target-org ${{ secrets.SF_USERNAME }} --dry-run
+            # Use the encrypted server.key
+
+            # step 1 : Run this command  - openssl enc -aes-256-cbc -k GITHUBACTIONS_PANTHERSCHOOLS -P -md sha1 -nosalt. This will generate the below o/p
+                     # key=6C395D852F82C03D3C2D3D4AD9ABB2DDCFC9A5DDACDBA3EFCE82673F6803BFFE
+                      # iv =C09450747BB6914ADC55ECC9BF67D357
+            # Step 2 :  Save the Key and IV. Create secrets for Key and IV
+            # Step 3 : Encrypt the server.key using the below command.
+            #          openssl enc -nosalt -aes-256-cbc -in server.key -out server.key.enc -base64 -K 6C395D852F82C03D3C2D3D4AD9ABB2DDCFC9A5DDACDBA3EFCE82673F6803BFFE -iv C09450747BB6914ADC55ECC9BF67D357
+            #           openssl enc -nosalt -aes-256-cbc -in server.key -out server.key.enc -base64 -K <Your-Key> -iv <Your-IV>
+            #           This command will generate a server.key.enc file. An encrypted server.key
+            # Step 4 : Add the server.key.enc in assests folder
+            # Step 5 : Add the decrypt command in yml file.
+            # openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
+            - name : "Authorize the Org usinf encrypted server.key"
+              run : echo "Authorization using encrypted server.key"
+            - name : "Decrypt , create and store server1.key in assets folder"
+              run : openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server1.key -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
+            - name : "Authorize the org using encrypted server.key - server1.key"
+              run : sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assets/server1.key --client-id ${{ secrets.SF_CLIENT_ID }} --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
+
+              # Mask the path of server.key
+              # Step 1 : Create a secret and use the path of the server.key there
+            - name : "Authorize an org with encrypted server.key and hide the path in command"
+              run : echo "Authorize an org with encrypted server.key and hide the path in command"
+            - name : Decrypt , create and store server2.key in assets folder
+              run : openssl enc -nosalt -aes-256-cbc -d -in ${{secrets.JWT_KEY_FILE_ENC}} -out ${{secrets.JWT_KEY_FILE}} -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
+            - name : "Authorize the org using encrypted server.key - server2.key"
+              run : sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file ${{secrets.JWT_KEY_FILE}} --client-id ${{ secrets.SF_CLIENT_ID }} --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
+            - name: Validate the Code to Salesforce
+              run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml --dry-run
+            # - name: Deploy the Code to Salesforce
+            #   run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml
+            # - name : "Print Flostest values"
+            #   run : echo "The org name is ${{secrets.ORG_NAME}} and url is ${{secrets.ORG_URL}}"
+
+
+
+
+
+
+
+               
+
+
+    
