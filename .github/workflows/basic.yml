@@ -56,7 +56,7 @@ jobs :
               # Mask the path of server.key
               # Step 1 : Create a secret and use the path of the server.key there
             - name : "Authorize an org with encrypted server.key and hide the path in command"
-              run : echo ""Authorize an org with encrypted server.key and hide the path in command"
+              run : echo "Authorize an org with encrypted server.key and hide the path in command"
             - name : Decrypt , create and store server2.key in assets folder
               run : openssl enc -nosalt -aes-256-cbc -d -in ${{secrets.JWT_KEY_FILE_ENC}} -out ${{secrets.JWT_KEY_FILE}} -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
 
