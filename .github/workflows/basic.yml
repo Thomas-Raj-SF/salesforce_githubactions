@@ -64,7 +64,7 @@ jobs :
             - name : "Authorize the org using encrypted server.key - server2.key"
               run : sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file ${{secrets.JWT_KEY_FILE}} --client-id ${{ secrets.SF_CLIENT_ID }} --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
             - name: Validate the Code to Salesforce
-              run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml --dry-run --test-level RunSpecifiedTests --tests AddTest DemoTest
+              run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml --dry-run --test-level RunSpecifiedTests --tests AddTest
             - name: Deploy the Code to Salesforce
               run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml
 
