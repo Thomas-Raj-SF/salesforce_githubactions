@@ -10,7 +10,7 @@ jobs :
     Salesforce-Job:
         runs-on : ubuntu-latest
         # Environment is available only in public repo for a free tier github
-        environment : flotest
+        # environment : flotest
         steps :
             - name : "Checkout to the rep"
               uses: actions/checkout@v4.2.1
@@ -69,8 +69,8 @@ jobs :
               run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml --dry-run
             - name: Deploy the Code to Salesforce
               run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml
-            - name : "Print Flostest values"
-              run : echo "The org name is ${{secrets.ORG_NAME}} and url is ${{secrets.ORG_URL}}"
+            # - name : "Print Flostest values"
+            #   run : echo "The org name is ${{secrets.ORG_NAME}} and url is ${{secrets.ORG_URL}}"
 
 
 
