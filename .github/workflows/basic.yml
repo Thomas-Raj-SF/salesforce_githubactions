@@ -34,9 +34,10 @@ jobs :
             - name : "Authorize an org case 1"
               run :  sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assets/server.key --client-id ${{ secrets.SF_CLIENT_ID }} --set-default --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
             # Use the encrypted server.key
+
             # step 1 : Run this command  - openssl enc -aes-256-cbc -k GITHUBACTIONS_PANTHERSCHOOLS -P -md sha1 -nosalt. This will generate the below o/p
-            # key=6C395D852F82C03D3C2D3D4AD9ABB2DDCFC9A5DDACDBA3EFCE82673F6803BFFE
-            # iv =C09450747BB6914ADC55ECC9BF67D357
+                     # key=6C395D852F82C03D3C2D3D4AD9ABB2DDCFC9A5DDACDBA3EFCE82673F6803BFFE
+                      # iv =C09450747BB6914ADC55ECC9BF67D357
             # Step 2 :  Save the Key and IV. Create secrets for Key and IV
             # Step 3 : Encrypt the server.key using the below command.
             #          openssl enc -nosalt -aes-256-cbc -in server.key -out server.key.enc -base64 -K 6C395D852F82C03D3C2D3D4AD9ABB2DDCFC9A5DDACDBA3EFCE82673F6803BFFE -iv C09450747BB6914ADC55ECC9BF67D357
@@ -47,10 +48,19 @@ jobs :
             # openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
             - name : "Authorize the Org usinf encrypted server.key"
               run : echo "Authorization using encrypted server.key"
-            - name : "Decrypt , create and store server.key in assets folder"
+            - name : "Decrypt , create and store server1.key in assets folder"
               run : openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server1.key -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
             - name : "Authorize the org using encrypted server.key - server1.key"
               run : sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assets/server1.key --client-id ${{ secrets.SF_CLIENT_ID }} --set-default --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
+
+              # Mask the path of server.key
+              # Step 1 : Create a secret and use the path of the server.key there
+            - name : "Authorize an org with encrypted server.key and hide the path in command"
+              run : echo ""Authorize an org with encrypted server.key and hide the path in command"
+            - name : Decrypt , create and store server2.key in assets folder
+              run : openssl enc -nosalt -aes-256-cbc -d -in ${{secrets.JWT_KEY_FILE_ENC}} -out ${{secrets.JWT_KEY_FILE}} -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
+
+
 
 
 
