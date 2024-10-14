@@ -1,4 +1,4 @@
-name: Github Action for Jenkinsdev
+name: Github Action for Floest with Filter
 run-name : ${{github.actor}} is running the Github Action
 on:
  push:
