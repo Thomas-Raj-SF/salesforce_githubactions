@@ -32,7 +32,7 @@ jobs :
               run : npm --version
               # This command will use server.key from the repo , not so secure step 1
             - name : "Authorize an org case 1"
-              run :  sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assests/server.key --client-id ${{ secrets.SF_CLIENT_ID }} --set-default --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
+              run :  sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file assets/server.key --client-id ${{ secrets.SF_CLIENT_ID }} --set-default --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
             # Use the encrypted server.key
             # step 1 : Run this command  - openssl enc -aes-256-cbc -k GITHUBACTIONS_PANTHERSCHOOLS -P -md sha1 -nosalt. This will generate the below o/p
             # key=6C395D852F82C03D3C2D3D4AD9ABB2DDCFC9A5DDACDBA3EFCE82673F6803BFFE
