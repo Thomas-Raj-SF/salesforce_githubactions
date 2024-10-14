@@ -4,6 +4,7 @@ on:
  push:
   paths:
    - 'force-app/**'
+  #  Now any pushes made to inside force/app folder will onlt triiger this yml file
 jobs :
     First-Job:
         runs-on: ubuntu-latest
