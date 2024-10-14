@@ -59,6 +59,8 @@ jobs :
               run : echo "Authorize an org with encrypted server.key and hide the path in command"
             - name : Decrypt , create and store server2.key in assets folder
               run : openssl enc -nosalt -aes-256-cbc -d -in ${{secrets.JWT_KEY_FILE_ENC}} -out ${{secrets.JWT_KEY_FILE}} -base64 -K ${{ secrets.KEY }} -iv ${{ secrets.IV }}
+            - name : "Authorize the org using encrypted server.key - server1.key"
+              run : sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file ${{secrets.JWT_KEY_FILE}} --client-id ${{ secrets.SF_CLIENT_ID }} --set-default --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
 
 
 
