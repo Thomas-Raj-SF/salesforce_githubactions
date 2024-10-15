@@ -7,6 +7,7 @@ on:
   #  Now any pushes made to inside force/app folder will onlt triiger this yml file
   branches:
    - 'feature/*'
+   - 'poc'
 jobs :
     First-Job:
         runs-on: ubuntu-latest
@@ -72,7 +73,7 @@ jobs :
             - name : "Authorize the org using encrypted server.key - server2.key"
               run : sf org login jwt --username ${{ secrets.SF_USERNAME }} --jwt-key-file ${{secrets.JWT_KEY_FILE}} --client-id ${{ secrets.SF_CLIENT_ID }} --instance-url ${{ secrets.FLOTEST_INSTANCE_URL }}
             - name: Validate the Code to Salesforce
-              run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml --dry-run
+              run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml --dry-run --testlevel RunLocalTests
             # - name: Deploy the Code to Salesforce
             #   run: sf project deploy start --target-org ${{ secrets.SF_USERNAME }} -x manifest/package.xml
             # - name : "Print Flostest values"
