@@ -86,7 +86,7 @@ jobs :
             - name : "Run scanner"
               run: sf scanner run --format table --target force-app/main/default/classes --engine pmd,pmd-appexchange -c Design
             - name : "Run scanner part 2"
-              run: sf scanner run --format table --target force-app/main/default/* --engine pmd,pmd-appexchange -c Design
+              run: sf scanner run --format table --target force-app --engine pmd,pmd-appexchange
             - name: Run Salesforce Code Anayzer Scan
               id: code-analyzer
               run: |
