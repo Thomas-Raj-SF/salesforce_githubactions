@@ -82,7 +82,7 @@ jobs :
             # - name : "Print Flostest values"
             #   run : echo "The org name is ${{secrets.ORG_NAME}} and url is ${{secrets.ORG_URL}}"
             - name : "Run scanner"
-              run: sf scanner --format table --target force-app --engine pmd,pmd-appex-change
+              run: sf scanner --format table --target force-app --engine pmd,pmd-appexchange
             
 
 
