@@ -4,7 +4,7 @@ on:
  push:
   paths:
    - 'force-app/**'
-   - '.github/**'
+   - '.github/workflows/**'
   #  Now any pushes made to inside force/app folder will onlt triiger this yml file
   branches:
    - 'feature/*'
