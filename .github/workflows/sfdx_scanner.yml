@@ -83,9 +83,9 @@ jobs :
             #   run : echo "The org name is ${{secrets.ORG_NAME}} and url is ${{secrets.ORG_URL}}"
 
             # Scanner
-            # Install scanner plugins
-            # - name : "Install sf scanner"
-            #   run : sf plugins install @salesforce/sfdx-scanner
+            # Install scanner plugins if not installed, the plugin willbe installed automatically when we excute scan command
+            - name : "Install sf scanner"
+              run : sf plugins install @salesforce/sfdx-scanner
               # Use sfdx scanner to print output in console output
             - name : "Run scanner"
               run: sf scanner run --format table --target force-app/main/default/classes --engine pmd,pmd-appexchange -c Design
