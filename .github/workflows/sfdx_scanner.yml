@@ -97,6 +97,12 @@ jobs :
                mkdir reports
                echo "Folder is created"
                sf scanner run --format html --target force-app/main/default/classes --engine pmd,pmd-appexchange --category Design,Best Practices, Code Style,Performance,Security,Documentation, Error Prone --outfile reports/scan-reports.html
+            - name: Upload a Salesforce CLI Scan Report
+              id: upload-reports
+              uses: actions/upload-artifact@v4.4.0
+              with:
+               name: cli-scan-report
+               path: reports/scan-reports.html
 
             
 
