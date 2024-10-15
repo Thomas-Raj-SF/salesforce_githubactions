@@ -83,8 +83,8 @@ jobs :
             #   run : echo "The org name is ${{secrets.ORG_NAME}} and url is ${{secrets.ORG_URL}}"
             - name : "Install sf scanner"
               run : sf plugins install @salesforce/sfdx-scanner
-            # - name : "Run scanner"
-            #   run: sf scanner --format table --target force-app --engine pmd,pmd-appexchange -c Design
+            - name : "Run scanner"
+              run: sf scanner --format table --target force-app/main/default/classes --engine pmd,pmd-appexchange -c Design
             - name: Run Salesforce Code Anayzer Scan
               id: code-analyzer
               run: |
