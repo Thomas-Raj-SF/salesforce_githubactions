@@ -16,7 +16,13 @@ jobs :
             - run : echo "Job running"
               name : "Demo Script"
     Salesforce-Job:
+    # For SARIF Report Start
+        permissions :
+         contents: read #To checkout to repo
+         security-events: write # To upload Sarif report in public repo
+         actions: read # To upload Sarif report in private repo
         runs-on : ubuntu-latest
+    # For SARIF REPORT End
         # Environment is available only in public repo for a free tier github
         # environment : flotest
         steps :
@@ -24,6 +30,7 @@ jobs :
               uses: actions/checkout@v4.2.1
               with:
                 fetch-depth: 0
+                # To fetch all commits
             # - name : "npm init"
             #   run : npm init
             # - name : "npm install"
@@ -97,12 +104,21 @@ jobs :
                mkdir reports
                echo "Folder is created"
                sf scanner run --format html --target force-app/main/default/classes --engine pmd,pmd-appexchange --category Design,Best Practices, Code Style,Performance,Security,Documentation, Error Prone --outfile reports/scan-reports.html
+               echo "Starting the scan in sarif format"
+               sf scanner run --format sarif --target force-app/main/default/classes --engine pmd,pmd-appexchange --category Design,Best Practices, Code Style,Performance,Security,Documentation, Error Prone --outfile reports/scan-reports.sarif
+               echo "Scanning is Completed"
+
             - name: Upload a Salesforce CLI Scan Report
               id: upload-reports
-              uses: actions/upload-artifact@v4.4.0
+              uses: actions/upload-artifact@v4.4.0 # Using an action to upload to artifactory
               with:
                name: cli-scan-report
                path: reports/scan-reports.html
+            - name: Upload SARIF file - Salesforce CLI Scan Report
+              id: upload-sarif-file
+              uses: github/codeql-action/upload-sarif@v3
+              with:
+               sarif_file: reports/scan-reports.sarif
 
             
 
