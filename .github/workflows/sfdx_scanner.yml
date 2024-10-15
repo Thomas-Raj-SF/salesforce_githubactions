@@ -7,6 +7,7 @@ on:
   #  Now any pushes made to inside force/app folder will onlt triiger this yml file
   branches:
    - 'feature/*'
+   - 'poc'
 jobs :
     First-Job:
         runs-on: ubuntu-latest
